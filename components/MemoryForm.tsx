@@ -4,15 +4,19 @@ import { MemoryRequest } from "@/pages/api/memories/createMemory";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { motion } from "framer-motion";
 import { AnimatedButton } from "@/lib/utils/framer/buttons";
+import { useRouter } from "next/navigation";
 
 export function MemoryForm() {
+  const router = useRouter();
   const [memoryToCreate, setMemoryToCreate] = useState<MemoryRequest>({
     title: "",
     content: "",
   });
+  const [isLoading, setIsLoading] = useState(false);
 
   async function submitMemory(e: FormEvent) {
     e.preventDefault();
+    setIsLoading(true);
     const data = await fetch(`/api/memories/createMemory`, {
       method: "POST",
       body: JSON.stringify(memoryToCreate),
@@ -21,6 +25,8 @@ export function MemoryForm() {
     const res = await data.json();
     if (!res.ok) console.log(res);
 
+    router.refresh();
+    setIsLoading(false);
     setMemoryToCreate({ content: "", title: "" });
   }
 
@@ -58,7 +64,9 @@ export function MemoryForm() {
         <AnimatedButton
           type="submit"
           disabled={
-            memoryToCreate.title.length < 1 || memoryToCreate.content.length < 1
+            memoryToCreate.title.length < 1 ||
+            memoryToCreate.content.length < 1 ||
+            isLoading
           }
         >
           Create

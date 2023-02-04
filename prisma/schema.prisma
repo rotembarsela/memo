@@ -23,6 +23,6 @@ model Memory {
   content   String?
   published Boolean @default(false)
   createdAt DateTime @default(now())
-  user      User    @relation(fields: [userId], references: [id])
-  userId    Int
+  user      User?    @relation(fields: [userId], references: [id])
+  userId    Int?
 }

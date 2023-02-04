@@ -19,8 +19,6 @@ export function AnimatedButton({
 }: AnimatedButtonProps) {
   const controls = useAnimation();
 
-  const disabledButtonClassNames = disabled ? "border-red-500" : "border-black";
-
   useEffect(() => {
     if (disabled) {
       controls.start({ borderColor: "red" });
