@@ -23,9 +23,17 @@ export default async function Home() {
   */}
       <div className="py-5">
         <h3 className="uppercase text-xl underline">Memories:</h3>
-        {data.map((memory) => (
-          <div key={memory.id}>{memory.title}</div>
-        ))}
+        <div className="flex flex-col gap-5">
+          {data.map((memory) => (
+            <div
+              key={memory.id}
+              className="border-2 border-gray-100 px-3 py-2 shadow-sm"
+            >
+              <h2>{memory.title}</h2>
+              <p>{memory.content}</p>
+            </div>
+          ))}
+        </div>
       </div>
     </main>
   );

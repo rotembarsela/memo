@@ -2,6 +2,8 @@
 
 import { MemoryRequest } from "@/pages/api/memories/createMemory";
 import { ChangeEvent, FormEvent, useState } from "react";
+import { motion } from "framer-motion";
+import { AnimatedButton } from "@/lib/utils/framer/buttons";
 
 export function MemoryForm() {
   const [memoryToCreate, setMemoryToCreate] = useState<MemoryRequest>({
@@ -24,7 +26,7 @@ export function MemoryForm() {
 
   return (
     <form onSubmit={submitMemory}>
-      <div className="flex flex-col gap-5 border-2 border-gray-500/10 px-3 py-5">
+      <motion.div className="flex flex-col gap-5 border-2 border-gray-500/10 px-3 py-5">
         <h3 className="uppercase text-xl">Create a new Memory</h3>
         {/* Title */}
         <div className="flex flex-col">
@@ -53,17 +55,15 @@ export function MemoryForm() {
             className="border-2 border-gray-500 outline-none px-3 py-2 w-full"
           />
         </div>
-        <pre className="w-full">{JSON.stringify(memoryToCreate, null, 2)}</pre>
-        <button
+        <AnimatedButton
           type="submit"
-          className="bg-cyan-500 text-white uppercase px-2 py-3 rounded-md shadow-md disabled:cursor-not-allowed disabled:bg-cyan-800 w-full"
           disabled={
             memoryToCreate.title.length < 1 || memoryToCreate.content.length < 1
           }
         >
           Create
-        </button>
-      </div>
+        </AnimatedButton>
+      </motion.div>
     </form>
   );
 }
